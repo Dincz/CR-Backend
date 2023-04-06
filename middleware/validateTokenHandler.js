@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
+const { constants } = require("../constants");
 
 const validateToken = asyncHandler(async (req, res, next) => {
     let token;
@@ -10,15 +11,13 @@ const validateToken = asyncHandler(async (req, res, next) => {
         token = authHeader.split(" ")[1];
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
             if (err) {
-                res.status(401);
-                return res.json({ error: "User is not authorized" });
+                throw new Error(constants.UNATHORIZED);
             }
             req.user = decoded.user;
             next();
         });
         if (!token) {
-            res.status(401);
-            return res.json({ error: "User is not authorized or token is missing" });
+            throw new Error(constants.UNATHORIZED);
         }
     }
 });

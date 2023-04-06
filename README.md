@@ -25,3 +25,7 @@ download async handler
 npm i mongoose
 npx install-peerdeps --dev eslint-config-airbnb
 npm i -D eslint prettier eslint-plugin-prettier eslint-config-prettier eslint-plugin-node eslint-config-node
+improvements
+:Added res.status(statusCode).json in errorHandler.js
+ask about \_ & error handling should be done based on the error message instead of response code ..to avoid sending response again after sending the response in controller & save format again error
+:

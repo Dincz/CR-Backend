@@ -1,39 +1,43 @@
+/* eslint-disable no-lone-blocks */
+/* eslint-disable default-case */
+// const { constants } = require("../constants");
+
 const { constants } = require("../constants");
 
 const errorHandler = (err, req, res) => {
-    const statusCode = res.statusCode ? res.statusCode : 500;
-    switch (statusCode) {
-        case constants.VALIDATION_ERROR:
-            res.json({
-                title: "Validation Failed",
-                message: err.message,
-                stackTrace: err.stack,
-            });
-            break;
-        case constants.NOT_FOUND:
-            res.json({
-                title: "Not Found",
-                message: err.message,
-                stackTrace: err.stack,
-            });
-            break;
-        case constants.FORBIDDEN:
-            res.json({
-                title: "Forbidden",
-                message: err.message,
-                stackTrace: err.stack,
-            });
-            break;
-        case constants.SERVER_ERROR:
-            res.json({
-                title: "Server Error",
-                message: err.message,
-                stackTrace: err.stack,
-            });
-            break;
-        default:
-            console.log("NO Error, All good!");
-            break;
+    const errorMessage = err.message;
+
+    switch (errorMessage) {
+    case constants.NOT_FOUND.toString(): {
+        res.status(constants.NOT_FOUND).json({
+            message: "not found",
+        });
+    }
+        break;
+    case constants.FORBIDDEN.toString(): {
+        res.status(constants.FORBIDDEN).json({
+            message: "NO permission to enter",
+        });
+    }
+        break;
+    case constants.FORBIVALIDATION_ERRORDDEN.toString(): {
+        res.status(constants.VALIDATION_ERROR).json({
+            message: "Validation failed",
+        });
+    }
+        break;
+    case constants.UNATHORIZED.toString(): {
+        res.status(constants.UNATHORIZED).json({
+            message: "Authorization false",
+        });
+    }
+        break;
+    case constants.SERVER_ERROR.toString(): {
+        res.status(constants.SERVER_ERROR).json({
+            message: "Server Error",
+        });
+    }
+        break;
     }
 };
 

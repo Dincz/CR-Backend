@@ -2,20 +2,18 @@ const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
-
+const { constants } = require("../constants");
 // desc Register a user
 // route POST/api/users/register
 // access public
 const registerUser = asyncHandler(async (req, res) => {
     const { username, email, password } = req.body;
     if (!username || !email || !password) {
-        res.status(400);
-        throw new Error("All fields are mandatory!");
+        throw new Error(constants.VALIDATION_ERROR);
     }
     const userAvailable = await User.findOne({ email });
     if (userAvailable) {
-        res.status(400);
-        throw new Error("User already registered");
+        throw new Error(constants.VALIDATION_ERROR);
     }
 
     // Hash Password
@@ -31,8 +29,7 @@ const registerUser = asyncHandler(async (req, res) => {
     if (user) {
         res.status(201).json({ _id: user.id, email: user.email });
     } else {
-        res.status(400);
-        throw new Error("User data us not valid");
+        throw new Error(constants.VALIDATION_ERROR);
     }
     res.json({ message: "Register the User" });
 });
@@ -43,8 +40,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
-        res.status(400);
-        throw new Error("All fields are mandatory...!");
+        throw new Error(constants.VALIDATION_ERROR);
     }
     const user = await User.findOne({ email });
     // compare password with hashed password
@@ -58,8 +54,7 @@ const loginUser = asyncHandler(async (req, res) => {
         }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
         res.status(200).json({ accesstoken });
     } else {
-        res.status(401);
-        throw new Error("email or password is not valid");
+        throw new Error(constants.UNATHORIZED);
     }
 });
 
