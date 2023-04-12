@@ -1,6 +1,5 @@
-/* eslint-disable no-lone-blocks */
+/* eslint-disable no-unused-vars */
 /* eslint-disable default-case */
-// const { constants } = require("../constants");
 
 const { constants } = require("../constants");
 
@@ -12,32 +11,36 @@ const errorHandler = (err, req, res) => {
         res.status(constants.NOT_FOUND).json({
             message: "not found",
         });
-    }
         break;
+    }
+
     case constants.FORBIDDEN.toString(): {
         res.status(constants.FORBIDDEN).json({
             message: "NO permission to enter",
         });
-    }
         break;
-    case constants.FORBIVALIDATION_ERRORDDEN.toString(): {
+    }
+
+    case constants.VALIDATION_ERROR.toString(): {
         res.status(constants.VALIDATION_ERROR).json({
             message: "Validation failed",
         });
-    }
         break;
+    }
+
     case constants.UNATHORIZED.toString(): {
         res.status(constants.UNATHORIZED).json({
             message: "Authorization false",
         });
-    }
         break;
+    }
+
     case constants.SERVER_ERROR.toString(): {
         res.status(constants.SERVER_ERROR).json({
             message: "Server Error",
         });
-    }
         break;
+    }
     }
 };
 
