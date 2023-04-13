@@ -1,4 +1,5 @@
 exports.constants = {
+    SUCCESSFULL_REQUEST: 200,
     VALIDATION_ERROR: 400,
     UNATHORIZED: 401,
     FORBIDDEN: 403,
