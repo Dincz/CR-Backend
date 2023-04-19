@@ -89,13 +89,13 @@ http://localhost:5002/api/contacts/:ID
 *JSONWEBTOKEN REQUIRED*
 Update a specific contact by ID for the authenticated user
 ```
-#####DELETE CONTACT : DELETE
+##### DELETE CONTACT : DELETE
 ```sh
 http://localhost:5002/api/contacts/:ID
 *JSONWEBTOKEN REQUIRED*
 Delete a specific contact by ID for the authenticated user
 ```
-#####GET SPECIFIC CONTACT : GET
+##### GET SPECIFIC CONTACT : GET
 ```sh
 http://localhost:5002/api/contacts/:ID
 *JSONWEBTOKEN REQUIRED*
@@ -103,5 +103,5 @@ Retrieve a specific contact by ID for the authenticated user
 ```
 
 
-###Error Handling
+### Error Handling
 This application implements middleware for error handling, which will return a JSON response with a relevant error message and HTTP status code for any encountered errors.
