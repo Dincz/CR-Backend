@@ -1,7 +1,7 @@
-#Backend Conatact Manager
+# Backend Conatact Manager
 This is a backend application built using Express.js and MongoDB. It includes functionality for user authentication and authorization using jsonWebtoken, and implements middleware for error handling. The application also defines models, controllers, and routes for RESTful API endpoints related to contacts management.
 
-###Technologies Used
+### Technologies Used
 - Node.js
 - Express.js
 - MongoDB
@@ -17,13 +17,13 @@ This is a backend application built using Express.js and MongoDB. It includes fu
 
 ## Installation
 
-####Install the dependencies and devDependencies
+#### Install the dependencies and devDependencies
 
 ```sh
 npm i
 ```
 
-####Set up .env
+#### Set up .env
 
 ```sh    
 - [port] - "Assign a port number",
@@ -31,14 +31,14 @@ npm i
 - [ACCESS_TOKEN_SECRET] - "Secret"
 ```
 
-####Starting the Server
+#### Starting the Server
 
 ```sh    
 - [npm run start ] - "node server.js",
 - [npm run dev] - "nodemon server.js".
 ```
 
-###HTTP Status Code
+### HTTP Status Code
 
 | Status Code | Message |
 | ------ | ------ |
@@ -52,7 +52,7 @@ npm i
 
 ## Endpoints(POSTMAN)
 
-#####REGISTER : POST
+##### REGISTER : POST
 
 ```sh
 http://localhost:5002/api/users/register
@@ -60,7 +60,7 @@ http://localhost:5002/api/users/register
 "WILL RECIEVE ID"
 ```
 
-#####LOGIN : GET
+##### LOGIN : GET
 
 ```sh
 http://localhost:5002/api/users/login
@@ -68,7 +68,7 @@ http://localhost:5002/api/users/login
 "WILL RECIEVE JSONWEBTOKEN "
 ```
 
-#####GETTING ALL CONTACTS : GET
+##### GETTING ALL CONTACTS : GET
 
 ```sh
 http://localhost:5002/api/contacts 
@@ -76,14 +76,14 @@ http://localhost:5002/api/contacts
 Retrieve all contacts for the authenticated user
 ```
 
-#####CREATE CONTACT : POST
+##### CREATE CONTACT : POST
 ```sh
 http://localhost:5002/api/contacts 
 *JSONWEBTOKEN REQUIRED*
 Create a new contact for the authenticated user.
 ```
 
-#####UPDATE CONTACT : DELETE
+##### UPDATE CONTACT : DELETE
 ```sh
 http://localhost:5002/api/contacts/:ID
 *JSONWEBTOKEN REQUIRED*
