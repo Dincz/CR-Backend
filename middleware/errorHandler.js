@@ -28,8 +28,8 @@ const errorHandler = (err, req, res) => {
         break;
     }
 
-    case constants.UNATHORIZED.toString(): {
-        res.status(constants.UNATHORIZED).json({
+    case constants.UNAUTHORIZED.toString(): {
+        res.status(constants.UNAUTHORIZED).json({
             message: "Authorization false",
         });
         break;
