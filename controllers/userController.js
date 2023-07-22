@@ -46,7 +46,7 @@ const loginUser = asyncHandler(async (req, res) => {
                 email: user.email,
                 id: user.id,
             },
-        }, process.env.ACCESS_TOKEN_SECRET, { EXPIREIN: `${process.env.EXPIREIN}` });
+        }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.EXPIREIN });
         res.status(constants.SUCCESSFUL_REQUEST).json({ accesstoken });
         // might be error in converting string refer busticket later
     } else {

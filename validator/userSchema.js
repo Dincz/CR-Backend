@@ -9,7 +9,7 @@ const regSchema = Joi.object({
         .required(),
     email: Joi.string()
         .min(3)
-        .max(12)
+        .max(22)
         .email()
         .required(),
     password: Joi.string()

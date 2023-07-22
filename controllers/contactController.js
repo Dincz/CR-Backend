@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Contact = require("../models/contactModel");
 const { constants } = require("../constants");
-const { contactSchema } = require("../validator/contactSchema");
+
 // desc Get all contacts
 // route GET/api/contacts
 // access private
@@ -14,16 +14,18 @@ const getContacts = asyncHandler(async (req, res) => {
 // route POST/api/contacts
 // access private
 const createContact = asyncHandler(async (req, res) => {
-    const result = await contactSchema.validateAsync(req.body);
-    console.log(result);
+    const { name, email, phone } = req.body;
+    if (!name || !email || !phone) {
+        res.status(400);
+        throw new Error("All fields are mandatory!");
+    }
     const contact = await Contact.create({
-        name: result.name,
-        email: result.email,
-        phone: result.phone,
-        userId: result.user.id,
-        // userID might need to be rechecked properly
+        name,
+        email,
+        phone,
+        userId: req.user.id,
     });
-    res.status(constants.SUCCESSFUL_REQUEST).json(contact);
+    res.status(201).json(contact);
 });
 
 // desc Get contact

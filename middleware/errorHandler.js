@@ -3,7 +3,7 @@
 
 const { constants } = require("../constants");
 
-const errorHandler = (err, req, res) => {
+const errorHandler = (err, req, res, next) => {
     const errorMessage = err.message;
 
     switch (errorMessage) {
