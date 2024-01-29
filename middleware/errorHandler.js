@@ -3,7 +3,7 @@
 
 const { constants } = require("../constants");
 
-const errorHandler = (err, req, res) => {
+const errorHandler = (err, req, res, next) => {
     const errorMessage = err.message;
 
     switch (errorMessage) {
@@ -28,8 +28,8 @@ const errorHandler = (err, req, res) => {
         break;
     }
 
-    case constants.UNATHORIZED.toString(): {
-        res.status(constants.UNATHORIZED).json({
+    case constants.UNAUTHORIZED.toString(): {
+        res.status(constants.UNAUTHORIZED).json({
             message: "Authorization false",
         });
         break;

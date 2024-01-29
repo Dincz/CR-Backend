@@ -11,13 +11,13 @@ const validateToken = asyncHandler(async (req, res, next) => {
         token = authHeader.split(" ")[1];
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
             if (err) {
-                throw new Error(constants.UNATHORIZED);
+                throw new Error(constants.UNAUTHORIZED);
             }
             req.user = decoded.user;
             next();
         });
         if (!token) {
-            throw new Error(constants.UNATHORIZED);
+            throw new Error(constants.UNAUTHORIZED);
         }
     }
 });

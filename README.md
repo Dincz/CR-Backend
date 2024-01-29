@@ -105,3 +105,9 @@ Retrieve a specific contact by ID for the authenticated user
 
 ### Error Handling
 This application implements middleware for error handling, which will return a JSON response with a relevant error message and HTTP status code for any encountered errors.
+
+{
+"username":"Aniket bhai",
+"email":"aniketbhai@gmail.com",
+"password":"123"
+}

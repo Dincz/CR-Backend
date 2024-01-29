@@ -3,25 +3,23 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const { constants } = require("../constants");
+const { regSchema, logSchema } = require("../validator/userSchema");
 // desc Register a user
 // route POST/api/users/register
 // access public
 const registerUser = asyncHandler(async (req, res) => {
-    const { username, email, password } = req.body;
-    if (!username || !email || !password) {
-        throw new Error(constants.VALIDATION_ERROR);
-    }
-    const userAvailable = await User.findOne({ email });
+    const result = await regSchema.validateAsync(req.body);
+    const userAvailable = await User.findOne({ email: result.email });
     if (userAvailable) {
         throw new Error(constants.VALIDATION_ERROR);
     }
 
     // Hash Password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(result.password, 10);
     console.log("Hashed Password:", hashedPassword);
     const user = await User.create({
-        username,
-        email,
+        username: result.username,
+        email: result.email,
         password: hashedPassword,
     });
 
@@ -38,13 +36,10 @@ const registerUser = asyncHandler(async (req, res) => {
 // route POST/api/users/login
 // access public
 const loginUser = asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
-        throw new Error(constants.VALIDATION_ERROR);
-    }
-    const user = await User.findOne({ email });
+    const result = await logSchema.validateAsync(req.body);
+    const user = await User.findOne({ email: result.email });
     // compare password with hashed password
-    if (user && (await bcrypt.compare(password, user.password))) {
+    if (user && (await bcrypt.compare(result.password, user.password))) {
         const accesstoken = jwt.sign({
             user: {
                 username: user.username,
@@ -52,9 +47,10 @@ const loginUser = asyncHandler(async (req, res) => {
                 id: user.id,
             },
         }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.EXPIREIN });
-        res.status(constants.SUCCESSFULL_REQUEST).json({ accesstoken });
+        res.status(constants.SUCCESSFUL_REQUEST).json({ accesstoken });
+        // might be error in converting string refer busticket later
     } else {
-        throw new Error(constants.UNATHORIZED);
+        throw new Error(constants.UNAUTHORIZED);
     }
 });
 
